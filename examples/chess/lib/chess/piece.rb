@@ -1,6 +1,6 @@
 module Chess
-
   class Piece
+    include ICRb::ADT
 
     def initialize(color)
       @color = color
@@ -32,15 +32,6 @@ module Chess
       "#{color} #{kind.capitalize}"
     end
 
-    def ==(other)
-      (other.class == self.class) && (other.color == self.color)
-    end
-    alias :eql? :==
-
-    def hash
-      [ kind, color ].hash
-    end
-
     class King < Piece
     end # class King
 
@@ -60,5 +51,4 @@ module Chess
     end # class Rook
 
   end # class Piece
-
 end # module Chess

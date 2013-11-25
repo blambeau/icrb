@@ -1,5 +1,6 @@
 module Chess
   class Pos
+    include ICRb::ADT
 
     def initialize(row, col)
       @row, @col = row, col
@@ -49,15 +50,6 @@ module Chess
     def light?
       !dark?
     end
-
-    def hash
-      row + 37*col
-    end
-
-    def ==(other)
-      other.is_a?(Pos) && (other.row == self.row) && (other.col == self.col)
-    end
-    alias :eql? :==
 
     def to_s
       "Pos(#{to_algebraic})"

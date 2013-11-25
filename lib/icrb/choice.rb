@@ -25,6 +25,10 @@ module ICRb
       arg.class.omega(arg).to_json(*args, &bl)
     end
 
+    def _to_yaml(arg, *args, &bl)
+      arg.class.omega(arg).to_yaml(*args, &bl)
+    end
+
     def _alpha(arg)
       not_empty!
       error = nil

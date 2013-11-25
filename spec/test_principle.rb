@@ -91,6 +91,44 @@ module ICRb
         it{ should eq([255,192,203]) }
       end
 
+      describe 'hash' do
+        subject{ color.hash }
+
+        it 'delegates to the first ic' do
+          subject.should eq([255,192,203].hash)
+        end
+      end
+
+      describe '==' do
+        subject{ Color.omega(color) == Color.omega(color) }
+
+        it{ should be_true }
+      end
+
+      describe 'to_json' do
+        subject{ color.to_json }
+
+        it 'delegates to the first ic' do
+          subject.should eq([255,192,203].to_json)
+        end
+
+        it 'allows a roundtrip' do
+          Color.alpha(::JSON.load(subject)).should eq(color)
+        end
+      end
+
+      describe 'to_yaml' do
+        subject{ color.to_yaml }
+
+        it 'delegates to the first ic' do
+          subject.should eq([255,192,203].to_yaml)
+        end
+
+        it 'allows a roundtrip' do
+          Color.alpha(::YAML.load(subject)).should eq(color)
+        end
+      end
+
     end
   end
 end

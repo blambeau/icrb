@@ -1,5 +1,6 @@
 module Chess
   class Board
+    include ICRb::ADT
 
     def initialize(pieces = Array.new(64))
       @pieces = pieces
@@ -21,15 +22,6 @@ module Chess
       end
 
     end # ic info
-
-    def hash
-      pieces.hash
-    end
-
-    def ==(other)
-      other.is_a?(Board) && (other.pieces == self.pieces)
-    end
-    alias :eql? :==
 
     def to_s
       sepline = "   " << ("+" + "-"*8)*8 << "+" << "\n"
