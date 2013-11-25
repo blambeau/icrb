@@ -1,6 +1,6 @@
 module Alf
   module Algebra
-    class Omega
+    class Down
       include Shortcut
       include Unary
 
@@ -88,6 +88,6 @@ module Alf
         extend(operand, attributes.to_extension)
       end
 
-    end # class Alpha
+    end # class Down
   end # module Algebra
 end # module Alf

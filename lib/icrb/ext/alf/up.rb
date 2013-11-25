@@ -1,6 +1,6 @@
 module Alf
   module Algebra
-    class Alpha
+    class Up
       include Shortcut
       include Unary
 
@@ -29,6 +29,6 @@ module Alf
         Hash[ext]
       end
 
-    end # class Alpha
+    end # class Up
   end # module Algebra
 end # module Alf

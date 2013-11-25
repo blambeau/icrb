@@ -1,6 +1,6 @@
 require 'spec_helper'
 module Alf
-  describe Relation, 'alpha' do
+  describe Relation, 'up' do
 
     let(:rel){
       Relation([
@@ -8,7 +8,7 @@ module Alf
       ])
     }
 
-    subject{ rel.alpha(color: ICRb::Color) }
+    subject{ rel.up(color: ICRb::Color) }
 
     pending do
       it 'should have expected heading' do

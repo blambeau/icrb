@@ -1,6 +1,6 @@
 require 'spec_helper'
 module Alf
-  class Algebra::Omega::Omegaization
+  class Algebra::Down::Omegaization
     describe ArrayBased, "to_heading" do
 
       let(:omg){ ArrayBased.new([:color]) }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 module Alf
-  describe Relation, 'omega' do
+  describe Relation, 'down' do
 
     let(:rel){
       Relation([
@@ -9,7 +9,7 @@ module Alf
     }
 
     context 'with a hash' do
-      subject{ rel.omega(color: :hex) }
+      subject{ rel.down(color: :hex) }
 
       pending do
         it 'should have expected heading' do
@@ -26,7 +26,7 @@ module Alf
     end
 
     context 'with a list of symbols' do
-      subject{ rel.omega([:color]) }
+      subject{ rel.down([:color]) }
 
       pending do
         it 'should have expected heading' do
