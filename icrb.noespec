@@ -1,0 +1,26 @@
+template-info:
+  name: "rubygem.noe"
+  version: 2.0.0
+  links:
+    source: https://github.com/blambeau/noe
+variables:
+  lower: 
+    icrb
+  upper:
+    ICRb
+  version:
+    1.0.0
+  summary: |-
+    Information Contracts for Ruby
+  description: |-
+    Implements support for information contracts in ruby
+  authors: 
+    - {name: Bernard Lambeau, email: blambeau@gmail.com}
+  links:
+    - http://github.com/blambeau/icrb
+  dependencies:
+    - {name: alf-core,      version: "~> 0.16",    groups: [runtime]}
+    - {name: path,          version: "~> 1.3",     groups: [development]}
+    - {name: rake,          version: "~> 10.0",    groups: [development]}
+    - {name: bundler,       version: "~> 1.0",     groups: [development]}
+    - {name: rspec,         version: "~> 2.14",    groups: [development]}

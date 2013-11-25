@@ -1,0 +1,8 @@
+require "rspec/core/rake_task"
+desc "Run RSpec code examples"
+RSpec::Core::RakeTask.new do |t|
+  t.pattern = "spec/**/test_*.rb"
+  t.fail_on_error = true
+  t.rspec_opts = ["--color", "--backtrace"]
+end
+task :default => :spec
