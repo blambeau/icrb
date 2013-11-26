@@ -6,9 +6,13 @@ module Alf
         raise ICRb::AlphaError, "Invalid input `#{array}` for #{self}"
       end
 
-      type   = Tuple[heading]
-      tuples = array.map{|t| type.alpha(t) }.to_set
-      new(tuples)
+      if respond_to?(:heading)
+        type   = Tuple[heading]
+        tuples = array.map{|t| type.alpha(t) }.to_set
+        new(tuples)
+      else
+        coerce(array)
+      end
     end
 
     def self.omega(rel)
