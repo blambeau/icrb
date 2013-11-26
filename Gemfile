@@ -2,7 +2,6 @@ source 'http://rubygems.org'
 
 group :runtime do
   gem "alf-core", path: "~/work/devel/alf-tool/alf/alf-core"
-  gem "myrrha",   path: "~/work/devel/myrrha"
   gem "icrb",     path: "."
 end
 

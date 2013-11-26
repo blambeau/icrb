@@ -1,5 +1,7 @@
 $:.unshift('../lib')
 $:.unshift('../../../lib')
+
+require 'bundler/setup'
 require 'chess'
 require 'path'
 
