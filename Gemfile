@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 group :runtime do
-  gem "alf-core", path: "~/work/devel/alf-tool/alf/alf-core"
+  gem "alf-core", git: "git://github.com/alf-tool/alf-core.git"
   gem "icrb",     path: "."
 end
 

@@ -7,6 +7,16 @@ Information Contracts for Ruby.
 * http://github.com/blambeau/icrb
 * http://github.com/alf-tool/alf
 
+## Hands on
+
+```
+git clone git@github.com:blambeau/icrb.git
+cd icrb
+bundle install
+cd examples/chess
+bundle exec ruby -Ilib examples/load.rb
+```
+
 ## What is this?
 
 An investigation of providing the dual of Axiomatic Contracts (read Abstract
