@@ -10,13 +10,15 @@ module Alf
 
     subject{ rel.up(color: ICRb::Color) }
 
-    pending do
-      it 'should have expected heading' do
-        subject.heading.should eq(Heading[color: ICRb::Color])
-      end
-
-      it{ should be_a(Relation[color: ICRb::Color]) }
+    it 'should have expected heading' do
+      subject.heading.should eq(Heading[color: ICRb::Color])
     end
+
+    pending{
+      it{
+        should be_a(Relation[color: ICRb::Color])
+      }
+    }
 
     it 'should be as expected' do
       subject.tuple_extract[:color].should be_a(ICRb::Color)

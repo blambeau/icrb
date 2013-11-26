@@ -26,12 +26,13 @@ module Alf
             up_h.merge(rehash{|attr| up_h[attr].ics.datatype })
           end
 
-          def to_extension
+          def to_extension(down_h)
             rehash{|attr|
-              ->(t){
+              proc = ->(t){
                 val = t[attr]
                 val.class.omega(val)
               }
+              TupleExpression.new(proc, nil, down_h[attr])
             }
           end
 
@@ -53,12 +54,13 @@ module Alf
             up_h.merge(rehash{|attr, ic| up_h[attr].ics.datatype(ic) })
           end
 
-          def to_extension
+          def to_extension(down_h)
             rehash{|attr, ic|
-              ->(t){
+              proc = ->(t){
                 val = t[attr]
                 val.class.omega(val, ic)
               }
+              TupleExpression.new(proc, nil, down_h[attr])
             }
           end
 
@@ -85,7 +87,7 @@ module Alf
       end
 
       def expand
-        extend(operand, attributes.to_extension)
+        extend(operand, attributes.to_extension(heading))
       end
 
     end # class Down

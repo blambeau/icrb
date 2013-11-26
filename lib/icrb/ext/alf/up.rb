@@ -9,7 +9,7 @@ module Alf
       end
 
       def heading
-        @heading ||= operand.heading.merge(coercions)
+        @heading ||= operand.heading.merge(attributes)
       end
 
       def keys
@@ -24,7 +24,8 @@ module Alf
 
       def extension
         ext = attributes.map{|name, ic|
-          [name, ->(t){ ic.alpha(t[name]) }]
+          proc = ->(t){ ic.alpha(t[name]) }
+          [ name, TupleExpression.new(proc, nil, ic) ]
         }
         Hash[ext]
       end

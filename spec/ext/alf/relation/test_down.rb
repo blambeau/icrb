@@ -11,11 +11,11 @@ module Alf
     context 'with a hash' do
       subject{ rel.down(color: :hex) }
 
-      pending do
         it 'should have expected heading' do
           subject.heading.should eq(Heading[color: String])
         end
 
+      pending do
         it{ should be_a(Relation[color: String]) }
       end
 
@@ -28,11 +28,11 @@ module Alf
     context 'with a list of symbols' do
       subject{ rel.down([:color]) }
 
-      pending do
-        it 'should have expected heading' do
-          subject.heading.should eq(Heading[color: Array])
-        end
+      it 'should have expected heading' do
+        subject.heading.should eq(Heading[color: Array])
+      end
 
+      pending do
         it{ should be_a(Relation[color: Array]) }
       end
 
