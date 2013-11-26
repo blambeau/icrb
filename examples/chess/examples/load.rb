@@ -1,15 +1,28 @@
 require_relative 'env'
 
 data = (Path.dir/'board.json').load
+
+# Let load the board from the data there.
+# Everything is deserialized correctly
 board = Chess::Board.alpha(data)
 
+# This is a beautiful chess board abstraction:
 puts board
 
-# puts Chess::Board.omega(board)
-#                  .down(:piece)
-#                  .unwrap(:piece)
-#                  .summarize([:color], count: count())
+# Let undress the abstraction and extract its information content
+rel = Chess::Board.omega(board)
 
-# puts Relation.alpha(data)
-#              .unwrap(:piece)
-#              .summarize([:color], count: count())
+# This is a pure data relation
+puts rel
+
+# You can query it easily. How many pieces per color?
+puts rel.down(:piece).unwrap(:piece).summarize([:color], count: count())
+
+# You can even serialize that content properly
+puts rel.to_json
+
+# Let dress the abstraction again
+board2 = Chess::Board.alpha(rel)
+
+# This is the same board, of course
+puts board == board2
