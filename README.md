@@ -35,6 +35,19 @@ class Color
   end
   attr_reader :r, :g, :b
 
+  # Triple information contract, i.e. rgb as an array
+  ic :triple, Array do
+
+    def alpha(array)
+      Color.new(*array)
+    end
+
+    def omega(color)
+      [color.r, color.g, color.b]
+    end
+
+  end # ic :triple
+
   # Hexadecimal information contract, as needed for HTML/CSS interoperability
   ic :hex, String, /^#[0-9a-f]{6}/i do
 
