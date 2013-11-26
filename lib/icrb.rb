@@ -3,6 +3,13 @@
 #
 module ICRb
 
+  Unset = Object.new
+  def Unset.to_s
+    "default"
+  end
+
+  TruePredicate = ->(arg){ true }
+
 end # module ICRb
 require "icrb/version"
 require "icrb/loader"

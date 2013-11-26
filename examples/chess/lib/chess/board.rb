@@ -11,7 +11,7 @@ module Chess
       @pieces[pos.to_linear]
     end
 
-    ic :relation, Relation[pos: Pos, piece: Piece] do
+    ic Relation[pos: Pos, piece: Piece] do
 
       def alpha(rel)
         Board.new(Array.alpha(rel.down(pos: :linear).rename(pos: :at, piece: :value)))

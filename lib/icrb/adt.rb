@@ -7,7 +7,13 @@ module ICRb
         @ics ||= Choice.new(self)
       end
 
-      def ic(name, datatype, precondition = nil, &defn)
+      def ic(name, datatype = Unset, precondition = Unset, &defn)
+        if datatype == Unset
+          name, datatype, precondition = Unset, name, TruePredicate
+        end
+        if precondition == Unset
+          precondition = TruePredicate
+        end
         ics[name] = ICRb::Base.build(self, name, datatype, precondition, &defn)
       end
 

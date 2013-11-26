@@ -1,16 +1,13 @@
 module ICRb
   class Base
 
-    TRUE_PRECONDITION = ->(arg){ true }
-
     def initialize(target, name, datatype, precondition)
       @target, @name, @datatype, @precondition = target, name, datatype, precondition
-      install
+      install if @name != Unset
     end
     attr_reader :target, :name, :datatype, :precondition
 
     def self.build(target, name, datatype, precondition, &defn)
-      precondition ||= TRUE_PRECONDITION
       Class.new(Base, &defn).new(target, name, datatype, precondition)
     end
 

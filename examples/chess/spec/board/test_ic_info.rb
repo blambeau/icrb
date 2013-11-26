@@ -10,11 +10,11 @@ module Chess
     }
 
     it 'works as expected' do
-      Board.relation(input).should be_a(Board)
+      Board.alpha(input).should be_a(Board)
     end
 
     it 'is information consistent' do
-      Board.relation(input).should eq(Board.relation(input))
+      Board.alpha(input).should eq(Board.alpha(input))
     end
 
   end

@@ -60,7 +60,7 @@ module ICRb
 
     def has_contract!(name)
       ic = alternatives[name]
-      raise OmegaError, "No such information contract `#{name}`" unless ic
+      raise OmegaError, "No information contract `#{name}` (got: #{alternatives.keys.join(',')})" unless ic
       ic
     end
 
