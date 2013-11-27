@@ -15,10 +15,10 @@ module ICRb
       alternatives.empty?
     end
 
-    def datatype(using = nil)
+    def infotype(using = nil)
       not_empty!
-      return datatype(alternatives.keys.first) unless using
-      has_contract!(using).datatype
+      return infotype(alternatives.keys.first) unless using
+      has_contract!(using).infotype
     end
 
     def _to_json(arg, *args, &bl)

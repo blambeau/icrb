@@ -6,9 +6,9 @@ module Alf
         raise ICRb::AlphaError, "Invalid input `#{hash}` for #{self}"
       end
 
-      coerced = Hash[heading.map{|name,datatype|
+      coerced = Hash[heading.map{|name,infotype|
         value = hash[name] || hash[name.to_s] || hash[name.to_sym]
-        value = datatype.alpha(value) unless value.is_a?(datatype)
+        value = infotype.alpha(value) unless value.is_a?(infotype)
         [ name.to_sym, value ]
       }]
       new(coerced)

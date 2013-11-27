@@ -18,7 +18,7 @@ module Chess
       end
 
       def omega(board)
-        datatype.alpha(Array.omega(board.pieces).rename(at: :pos, value: :piece))
+        infotype.alpha(Array.omega(board.pieces).rename(at: :pos, value: :piece))
       end
 
     end # ic info

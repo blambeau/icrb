@@ -17,7 +17,7 @@ module ICRb
 
         it 'should have all correctly set' do
           subject.name.should eq(:hex)
-          subject.datatype.should be(String)
+          subject.infotype.should be(String)
           subject.invariant.should be(invariant)
           subject.options.should eq(accessors: true, foo: :bar)
         end
@@ -28,7 +28,7 @@ module ICRb
 
         it 'should have all correctly set' do
           subject.name.should eq(Unset)
-          subject.datatype.should be(String)
+          subject.infotype.should be(String)
           subject.invariant.should be(invariant)
           subject.options.should eq(accessors: false, foo: :bar)
         end
@@ -39,7 +39,7 @@ module ICRb
 
         it 'should have all correctly set' do
           subject.name.should eq(:hex)
-          subject.datatype.should be(String)
+          subject.infotype.should be(String)
           subject.invariant.should be_a(Regexp)
           subject.options.should eq(accessors: true, foo: :bar)
         end
@@ -50,7 +50,7 @@ module ICRb
 
         it 'should have all correctly set' do
           subject.name.should eq(:hex)
-          subject.datatype.should be(String)
+          subject.infotype.should be(String)
           subject.invariant.should be(invariant)
           subject.options.should eq(accessors: false, foo: :bar)
         end

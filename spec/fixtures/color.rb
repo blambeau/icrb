@@ -38,7 +38,7 @@ module ICRb
       end
 
       def omega(color)
-        datatype.new(r: color.r, g: color.g, b: color.b)
+        infotype.new(r: color.r, g: color.g, b: color.b)
       end
 
     end # ic Tuple[r, g, b]

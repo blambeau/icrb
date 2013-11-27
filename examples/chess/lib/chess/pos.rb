@@ -14,7 +14,7 @@ module Chess
       end
 
       def omega(pos)
-        datatype.alpha(row: pos.row, col: pos.col)
+        infotype.alpha(row: pos.row, col: pos.col)
       end
 
     end # ic Tuple[row, col]

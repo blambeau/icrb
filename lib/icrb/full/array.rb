@@ -10,12 +10,12 @@ class Array
     end
 
     def omega(array)
-      type   = Tuple[datatype.heading]
+      type   = Tuple[infotype.heading]
       tuples = Set.new
       array.each_with_index.each{|val,i|
         tuples << type.alpha(at: i, value: val) unless val.nil?
       }
-      datatype.new(tuples)
+      infotype.new(tuples)
     end
 
   end

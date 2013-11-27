@@ -1,28 +1,28 @@
 module ICRb
   class Base
 
-    def initialize(target, name, datatype, invariant, options)
+    def initialize(target, name, infotype, invariant, options)
       @target = target
       @name = name
-      @datatype = datatype
+      @infotype = infotype
       @invariant = invariant
       @options = options
       install if options[:accessors] && (name != Unset)
     end
-    attr_reader :target, :name, :datatype, :invariant, :options
+    attr_reader :target, :name, :infotype, :invariant, :options
 
-    def self.build(target, name, datatype, invariant, options, &defn)
-      Class.new(Base, &defn).new(target, name, datatype, invariant, options)
+    def self.build(target, name, infotype, invariant, options, &defn)
+      Class.new(Base, &defn).new(target, name, infotype, invariant, options)
     end
 
     def _alpha(arg)
-      if datatype_match?(arg)
+      if infotype_match?(arg)
         invariant_ok!(arg)
         alpha(arg)
-      elsif datatype.respond_to?(:alpha)
-        _alpha(datatype.alpha(arg))
+      elsif infotype.respond_to?(:alpha)
+        _alpha(infotype.alpha(arg))
       else
-        raise AlphaError, "Invalid input `#{arg}` for #{datatype.name}"
+        raise AlphaError, "Invalid input `#{arg}` for #{infotype.name}"
       end
     end
 
@@ -32,8 +32,8 @@ module ICRb
 
   private
 
-    def datatype_match?(arg)
-      datatype===arg
+    def infotype_match?(arg)
+      infotype===arg
     end
 
     def invariant_ok?(arg)

@@ -15,7 +15,7 @@ module Chess
       end
 
       def omega(piece)
-        datatype.new(kind: piece.kind, color: piece.color)
+        infotype.new(kind: piece.kind, color: piece.color)
       end
 
     end # ic Tuple[kind, color]

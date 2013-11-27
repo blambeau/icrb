@@ -9,7 +9,7 @@ module ICRb
 
       def ic(*args, &defn)
         name      = Unset
-        datatype  = nil
+        infotype  = nil
         invariant = All
         options   = {}
 
@@ -18,7 +18,7 @@ module ICRb
           case arg
           when Symbol then name = arg
           when Proc   then invariant = arg
-          when Class  then datatype = arg
+          when Class  then infotype = arg
           when Hash   then options = arg
           when Regexp then invariant = arg
           end
@@ -29,7 +29,7 @@ module ICRb
         options[:accessors] &= (name != Unset)
 
         # build
-        ics[name] = ICRb::Base.build(self, name, datatype, invariant, options, &defn)
+        ics[name] = ICRb::Base.build(self, name, infotype, invariant, options, &defn)
       end
 
       def alpha(arg)
