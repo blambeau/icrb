@@ -3,12 +3,19 @@
 #
 module ICRb
 
+  # Marker for unset arguments
   Unset = Object.new
   def Unset.to_s
     "default"
   end
 
+  # The true predicate for 'no contract restriction'
   TruePredicate = ->(arg){ true }
+
+  # Default contract options
+  DefaultOptions = {
+    accessors: true
+  }
 
 end # module ICRb
 require "icrb/version"

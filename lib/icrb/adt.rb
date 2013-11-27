@@ -7,14 +7,29 @@ module ICRb
         @ics ||= Choice.new(self)
       end
 
-      def ic(name, datatype = Unset, precondition = Unset, &defn)
-        if datatype == Unset
-          name, datatype, precondition = Unset, name, TruePredicate
+      def ic(*args, &defn)
+        name         = Unset
+        datatype     = nil
+        precondition = TruePredicate
+        options      = {}
+
+        # parse arguments
+        args.each do |arg|
+          case arg
+          when Symbol then name = arg
+          when Proc   then precondition = arg
+          when Class  then datatype = arg
+          when Hash   then options = arg
+          when Regexp then precondition = arg
+          end
         end
-        if precondition == Unset
-          precondition = TruePredicate
-        end
-        ics[name] = ICRb::Base.build(self, name, datatype, precondition, &defn)
+
+        # normalize
+        options = DefaultOptions.merge(options)
+        options[:accessors] &= (name != Unset)
+
+        # build
+        ics[name] = ICRb::Base.build(self, name, datatype, precondition, options, &defn)
       end
 
       def alpha(arg)

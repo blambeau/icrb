@@ -1,14 +1,18 @@
 module ICRb
   class Base
 
-    def initialize(target, name, datatype, precondition)
-      @target, @name, @datatype, @precondition = target, name, datatype, precondition
-      install if @name != Unset
+    def initialize(target, name, datatype, precondition, options)
+      @target = target
+      @name = name
+      @datatype = datatype
+      @precondition = precondition
+      @options = options
+      install if options[:accessors] && (name != Unset)
     end
-    attr_reader :target, :name, :datatype, :precondition
+    attr_reader :target, :name, :datatype, :precondition, :options
 
-    def self.build(target, name, datatype, precondition, &defn)
-      Class.new(Base, &defn).new(target, name, datatype, precondition)
+    def self.build(target, name, datatype, precondition, options, &defn)
+      Class.new(Base, &defn).new(target, name, datatype, precondition, options)
     end
 
     def datatype_match?(arg)
