@@ -72,3 +72,4 @@ module ICRb
 
   end # class Contract
 end # module ICRb
+require_relative 'contract/or'

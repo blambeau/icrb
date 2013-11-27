@@ -4,7 +4,7 @@ module ICRb
     module ClassMethods
 
       def ics
-        @ics ||= Choice.new(self)
+        @ics ||= Contract::Or.new(self)
       end
 
       def ic(*args, &defn)

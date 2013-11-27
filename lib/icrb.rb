@@ -24,6 +24,5 @@ require "icrb/errors"
 
 require "icrb/adt"
 require "icrb/contract"
-require "icrb/choice"
 
 require "icrb/ext/alf"
