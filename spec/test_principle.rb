@@ -24,7 +24,7 @@ module ICRb
         it 'should raise an error' do
           lambda{
             subject
-          }.should raise_error(AlphaError, "Invalid input `#gyc0cb` for ICRb::Color.hex")
+          }.should raise_error(DressError, "Invalid input `#gyc0cb` for ICRb::Color.hex")
         end
       end
     end

@@ -3,7 +3,7 @@ module Alf
 
     def self.dress(hash)
       unless Alf::TupleLike===hash
-        raise ICRb::AlphaError, "Invalid input `#{hash}` for #{self}"
+        raise ICRb::DressError, "Invalid input `#{hash}` for #{self}"
       end
 
       coerced = Hash[heading.map{|name,infotype|

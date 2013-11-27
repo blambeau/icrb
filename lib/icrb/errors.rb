@@ -1,5 +1,5 @@
 module ICRb
   Error      = Class.new(StandardError)
-  AlphaError = Class.new(Error)
-  OmegaError = Class.new(Error)
+  DressError = Class.new(Error)
+  UndressError = Class.new(Error)
 end

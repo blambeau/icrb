@@ -36,7 +36,7 @@ module ICRb
         alternatives.each_pair do |name, ic|
           begin
             return ic._dress(arg)
-          rescue AlphaError => ex
+          rescue DressError => ex
             error = ex
           end
         end
@@ -56,12 +56,12 @@ module ICRb
     private
 
       def not_empty!
-        raise AlphaError, "No information contract on #{target.name}" if empty?
+        raise DressError, "No information contract on #{target.name}" if empty?
       end
 
       def has_contract!(name)
         ic = alternatives[name]
-        raise OmegaError, "No information contract `#{name}` (got: #{alternatives.keys.join(',')})" unless ic
+        raise UndressError, "No information contract `#{name}` (got: #{alternatives.keys.join(',')})" unless ic
         ic
       end
 

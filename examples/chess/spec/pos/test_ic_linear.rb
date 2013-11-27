@@ -18,10 +18,10 @@ module Chess
     it 'recognizes bad values' do
       lambda{
         Pos.linear(-10)
-      }.should raise_error(ICRb::AlphaError, "Invalid input `-10` for Chess::Pos.linear")
+      }.should raise_error(ICRb::DressError, "Invalid input `-10` for Chess::Pos.linear")
       lambda{
         Pos.linear(64)
-      }.should raise_error(ICRb::AlphaError, "Invalid input `64` for Chess::Pos.linear")
+      }.should raise_error(ICRb::DressError, "Invalid input `64` for Chess::Pos.linear")
     end
 
   end

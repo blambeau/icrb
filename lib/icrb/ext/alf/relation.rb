@@ -3,7 +3,7 @@ module Alf
 
     def self.dress(array)
       unless Alf::RelationLike===array or Array===array
-        raise ICRb::AlphaError, "Invalid input `#{array}` for #{self}"
+        raise ICRb::DressError, "Invalid input `#{array}` for #{self}"
       end
 
       if respond_to?(:heading)

@@ -22,7 +22,7 @@ module ICRb
       elsif infotype.respond_to?(:dress)
         _dress(infotype.dress(arg))
       else
-        raise AlphaError, "Invalid input `#{arg}` for #{infotype.name}"
+        raise DressError, "Invalid input `#{arg}` for #{infotype.name}"
       end
     end
 
@@ -42,7 +42,7 @@ module ICRb
 
     def invariant_ok!(arg)
       unless invariant_ok?(arg)
-        raise AlphaError, "Invalid input `#{arg}` for #{target.name}.#{name}"
+        raise DressError, "Invalid input `#{arg}` for #{target.name}.#{name}"
       end
       arg
     end

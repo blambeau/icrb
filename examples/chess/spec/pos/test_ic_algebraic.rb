@@ -18,10 +18,10 @@ module Chess
     it 'recognizes bad values' do
       lambda{
         Pos.algebraic("9D")
-      }.should raise_error(ICRb::AlphaError, "Invalid input `9D` for Chess::Pos.algebraic")
+      }.should raise_error(ICRb::DressError, "Invalid input `9D` for Chess::Pos.algebraic")
       lambda{
         Pos.algebraic("2I")
-      }.should raise_error(ICRb::AlphaError, "Invalid input `2I` for Chess::Pos.algebraic")
+      }.should raise_error(ICRb::DressError, "Invalid input `2I` for Chess::Pos.algebraic")
     end
 
   end

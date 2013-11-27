@@ -27,7 +27,7 @@ module ICRb
       it 'should recognize invalid literals' do
         lambda{
           Integer.dress("abc")
-        }.should raise_error(AlphaError, "Invalid input `abc` for Integer.literal")
+        }.should raise_error(DressError, "Invalid input `abc` for Integer.literal")
       end
 
     end
