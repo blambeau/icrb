@@ -17,9 +17,7 @@ module ICRb
       end
 
       def infotype(using = nil)
-        not_empty!
-        return infotype(alternatives.keys.first) unless using
-        has_contract!(using).infotype
+        contract!(using).infotype
       end
 
       def _to_json(arg, *args, &bl)
@@ -47,22 +45,32 @@ module ICRb
         if empty? && (sc = target.superclass)
           target.superclass.undress(inst, using)
         else
-          not_empty!
-          return _undress(inst, alternatives.keys.first) unless using
-          has_contract!(using)._undress(inst)
+          contract!(using)._undress(inst)
         end
       end
 
     private
+
+      def contract!(using = nil)
+        using ? has_contract!(using) : default_contract!
+      end
 
       def not_empty!
         raise DressError, "No information contract on #{target.name}" if empty?
       end
 
       def has_contract!(name)
-        ic = alternatives[name]
-        raise UndressError, "No information contract `#{name}` (got: #{alternatives.keys.join(',')})" unless ic
+        unless ic = alternatives[name]
+          alts = alternatives.keys.join(',')
+          msg  = "No information contract `#{name}` (got: #{alts})"
+          raise UndressError, msg
+        end
         ic
+      end
+
+      def default_contract!
+        not_empty!
+        alternatives.values.first
       end
 
     end # class Or
