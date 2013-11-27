@@ -9,7 +9,7 @@ module ICRb
       let(:invariant){ ->(t){ false } }
 
       after do
-        subject.should be_a(Base)
+        subject.should be_a(Contract)
       end
 
       context 'when all args' do

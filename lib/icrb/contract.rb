@@ -1,5 +1,5 @@
 module ICRb
-  class Base
+  class Contract
 
     def initialize(target, name, infotype, invariant, options)
       @target = target
@@ -12,7 +12,7 @@ module ICRb
     attr_reader :target, :name, :infotype, :invariant, :options
 
     def self.build(target, name, infotype, invariant, options, &defn)
-      Class.new(Base, &defn).new(target, name, infotype, invariant, options)
+      Class.new(self, &defn).new(target, name, infotype, invariant, options)
     end
 
     def _dress(arg)
@@ -70,5 +70,5 @@ module ICRb
       class << target; self; end
     end
 
-  end # class Base
+  end # class Contract
 end # module ICRb

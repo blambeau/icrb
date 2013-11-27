@@ -29,7 +29,7 @@ module ICRb
         options[:accessors] &= (name != Unset)
 
         # build
-        ics[name] = ICRb::Base.build(self, name, infotype, invariant, options, &defn)
+        ics[name] = Contract.build(self, name, infotype, invariant, options, &defn)
       end
 
       def dress(arg)
