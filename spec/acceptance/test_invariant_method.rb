@@ -3,7 +3,7 @@ module ICRb
   describe "Using an invariant method" do
 
     class WithInvariantMethod
-      include ICRb::ADT
+      include ICRb::Datatype
 
       def initialize(rep)
         @rep = rep

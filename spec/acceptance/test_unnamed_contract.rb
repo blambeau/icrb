@@ -3,7 +3,7 @@ module ICRb
   describe "Using an unnamed contract" do
 
     class WithUnnamedContract
-      include ICRb::ADT
+      include ICRb::Datatype
 
       def initialize(rep)
         @rep = rep

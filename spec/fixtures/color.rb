@@ -1,6 +1,6 @@
 module ICRb
   class Color
-    include ICRb::ADT
+    include ICRb::Datatype
 
     def initialize(r, g, b)
       @r, @g, @b = r, g, b

@@ -9,20 +9,20 @@ module ICRb
     # Marker for default name
     Default = :default
 
-    def initialize(adt, args, &dressers)
-      @adt = adt
+    def initialize(datatype, args, &dressers)
+      @datatype = datatype
       @dressers = dressers
       @args, @invariant, @options = parse(args)
     end
-    attr_reader :adt, :args, :invariant, :dressers, :options
+    attr_reader :datatype, :args, :invariant, :dressers, :options
 
-    def self.ic(adt, args, &defn)
-      new(adt, args, &defn).build
+    def self.ic(datatype, args, &defn)
+      new(datatype, args, &defn).build
     end
 
     def build
       @contract = build_contract
-      build_adt
+      build_datatype
       @contract
     end
     attr_reader :contract
@@ -62,10 +62,10 @@ module ICRb
         module_eval(&dressers)
         define_method(:valid?, &invariant) if invariant
       end
-      clazz.new(adt, *args)
+      clazz.new(datatype, *args)
     end
 
-    ### ADT
+    ### Datatype
 
     def named?
       contract.name && (contract.name != Default)
@@ -79,27 +79,27 @@ module ICRb
       named? && options[:accessors]
     end
 
-    def build_adt
+    def build_datatype
       install_loader if loader?
       install_dumper if dumper?
     end
 
     def install_loader
       contract = self.contract
-      eigen_adt.send(:define_method, contract.name) do |arg|
+      eigen_datatype.send(:define_method, contract.name) do |arg|
         contract._dress(arg)
       end
     end
 
     def install_dumper
       contract = self.contract
-      adt.send(:define_method, :"to_#{contract.name}") do
+      datatype.send(:define_method, :"to_#{contract.name}") do
         contract._undress(self)
       end
     end
 
-    def eigen_adt
-      class << adt; self; end
+    def eigen_datatype
+      class << datatype; self; end
     end
 
   end # class Builder

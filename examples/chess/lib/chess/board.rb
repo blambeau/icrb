@@ -1,6 +1,6 @@
 module Chess
   class Board
-    include ICRb::ADT
+    include ICRb::Datatype
 
     def initialize(pieces = Array.new(64))
       @pieces = pieces

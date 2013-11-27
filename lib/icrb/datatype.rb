@@ -1,5 +1,5 @@
 module ICRb
-  module ADT
+  module Datatype
 
     module ClassMethods
 
@@ -49,5 +49,5 @@ module ICRb
       self.class.ics._to_yaml(self, *args, &bl)
     end
 
-  end # module ADT
+  end # module Datatype
 end # module ICRb

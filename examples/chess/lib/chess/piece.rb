@@ -1,6 +1,6 @@
 module Chess
   class Piece
-    include ICRb::ADT
+    include ICRb::Datatype
 
     def initialize(color)
       @color = color

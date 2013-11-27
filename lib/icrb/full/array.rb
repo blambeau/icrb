@@ -1,5 +1,5 @@
 class Array
-  extend ICRb::ADT::ClassMethods
+  extend ICRb::Datatype::ClassMethods
 
   ic :facts, Relation[at: Integer, value: Object] do
 

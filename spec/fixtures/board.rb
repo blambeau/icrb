@@ -1,5 +1,5 @@
 class Board
-  include ICRb::ADT
+  include ICRb::Datatype
 
   def initialize(rel)
     @rel = rel

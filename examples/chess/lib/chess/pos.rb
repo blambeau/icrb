@@ -1,6 +1,6 @@
 module Chess
   class Pos
-    include ICRb::ADT
+    include ICRb::Datatype
 
     def initialize(row, col)
       @row, @col = row, col

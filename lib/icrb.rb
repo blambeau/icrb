@@ -8,7 +8,7 @@ require "icrb/version"
 require "icrb/loader"
 require "icrb/errors"
 
-require "icrb/adt"
+require "icrb/datatype"
 require "icrb/contract"
 require "icrb/builder"
 

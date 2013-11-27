@@ -1,5 +1,5 @@
 class Integer
-  extend ICRb::ADT::ClassMethods
+  extend ICRb::Datatype::ClassMethods
 
   ic :literal, String, ->(s){ s =~ /^-?\d+$/ }, accessors: false do
 

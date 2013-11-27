@@ -18,8 +18,8 @@ module ICRb
       end
     end
 
-    def _undress(adt)
-      undress(adt)
+    def _undress(datatype)
+      undress(datatype)
     end
 
     def valid?(infovalue)
