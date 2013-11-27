@@ -1,18 +1,16 @@
 module ICRb
   class Contract
 
-    def initialize(target, name, infotype, invariant, options)
+    def initialize(target, name, infotype, invariant)
       @target = target
       @name = name
       @infotype = infotype
       @invariant = invariant
-      @options = options
-      install if options[:accessors] && (name != Unset)
     end
-    attr_reader :target, :name, :infotype, :invariant, :options
+    attr_reader :target, :name, :infotype, :invariant
 
-    def self.build(target, name, infotype, invariant, options, &defn)
-      Class.new(self, &defn).new(target, name, infotype, invariant, options)
+    def self.build(target, name, infotype, invariant, &defn)
+      Class.new(self, &defn).new(target, name, infotype, invariant)
     end
 
     def _dress(arg)
@@ -45,29 +43,6 @@ module ICRb
         raise DressError, "Invalid input `#{arg}` for #{target.name}.#{name}"
       end
       arg
-    end
-
-  private
-
-    def install
-      install_loader
-      install_dumper
-    end
-
-    def install_loader(ic = self)
-      eigen_target.send(:define_method, name) do |arg|
-        ic._dress(arg)
-      end
-    end
-
-    def install_dumper(ic = self)
-      target.send(:define_method, :"to_#{name}") do
-        ic._undress(self)
-      end
-    end
-
-    def eigen_target
-      class << target; self; end
     end
 
   end # class Contract

@@ -8,28 +8,8 @@ module ICRb
       end
 
       def ic(*args, &defn)
-        name      = Unset
-        infotype  = nil
-        invariant = All
-        options   = {}
-
-        # parse arguments
-        args.each do |arg|
-          case arg
-          when Symbol then name = arg
-          when Proc   then invariant = arg
-          when Class  then infotype = arg
-          when Hash   then options = arg
-          when Regexp then invariant = arg
-          end
-        end
-
-        # normalize
-        options = DefaultOptions.merge(options)
-        options[:accessors] &= (name != Unset)
-
-        # build
-        ics[name] = Contract.build(self, name, infotype, invariant, options, &defn)
+        contract = Builder.ic(self, args, &defn)
+        ics[contract.name] = contract
       end
 
       def dress(arg)
