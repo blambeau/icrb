@@ -1,48 +1,38 @@
 module ICRb
   class Contract
 
-    def initialize(target, name, infotype, invariant)
+    def initialize(target, name, infotype)
       @target = target
       @name = name
       @infotype = infotype
-      @invariant = invariant
     end
-    attr_reader :target, :name, :infotype, :invariant
+    attr_reader :target, :name, :infotype
 
-    def self.build(target, name, infotype, invariant, &defn)
-      Class.new(self, &defn).new(target, name, infotype, invariant)
-    end
-
-    def _dress(arg)
-      if infotype_match?(arg)
-        invariant_ok!(arg)
-        dress(arg)
+    def _dress(infovalue)
+      if infotype === infovalue
+        dress valid!(infovalue)
       elsif infotype.respond_to?(:dress)
-        _dress(infotype.dress(arg))
+        _dress(infotype.dress(infovalue))
       else
-        raise DressError, "Invalid input `#{arg}` for #{infotype.name}"
+        raise DressError, "Invalid input `#{infovalue}` for #{infotype.name}"
       end
     end
 
-    def _undress(inst)
-      undress(inst)
+    def _undress(adt)
+      undress(adt)
+    end
+
+    def valid?(infovalue)
+      true
     end
 
   private
 
-    def infotype_match?(arg)
-      infotype===arg
-    end
-
-    def invariant_ok?(arg)
-      invariant===arg
-    end
-
-    def invariant_ok!(arg)
-      unless invariant_ok?(arg)
-        raise DressError, "Invalid input `#{arg}` for #{target.name}.#{name}"
+    def valid!(infovalue)
+      unless valid?(infovalue)
+        raise DressError, "Invalid input `#{infovalue}` for #{target.name}.#{name}"
       end
-      arg
+      infovalue
     end
 
   end # class Contract

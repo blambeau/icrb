@@ -1,9 +1,6 @@
 module ICRb
   class Builder
 
-    # The predicate that accepts all values
-    All = ->(arg){ true }
-
     # Default contract options
     DefaultOptions = {
       accessors: true
@@ -15,9 +12,9 @@ module ICRb
     def initialize(adt, args, &dressers)
       @adt = adt
       @dressers = dressers
-      @args, @options = parse(args)
+      @args, @invariant, @options = parse(args)
     end
-    attr_reader :adt, :options, :args, :dressers
+    attr_reader :adt, :args, :invariant, :dressers, :options
 
     def self.ic(adt, args, &defn)
       new(adt, args, &defn).build
@@ -35,7 +32,7 @@ module ICRb
     def parse(args)
       name      = Default
       infotype  = nil
-      invariant = All
+      invariant = nil
       options   = {}
 
       # parse arguments
@@ -45,7 +42,7 @@ module ICRb
         when Proc   then invariant = arg
         when Class  then infotype = arg
         when Hash   then options = arg
-        when Regexp then invariant = arg
+        when Regexp then invariant = ->(iv){ arg =~ iv }
         end
       end
 
@@ -53,14 +50,19 @@ module ICRb
       options = DefaultOptions.merge(options)
       options[:accessors] &= (name != Default)
 
-      [[name, infotype, invariant], options]
+      [[name, infotype], invariant, options]
     end
 
     ### Contract
 
     def build_contract
-      contract = Class.new(Contract, &dressers).new(adt, *args)
-      contract
+      dressers  = self.dressers
+      invariant = self.invariant
+      clazz = Class.new(Contract) do
+        module_eval(&dressers)
+        define_method(:valid?, &invariant) if invariant
+      end
+      clazz.new(adt, *args)
     end
 
     ### ADT
