@@ -9,8 +9,8 @@ module ICRb
     "default"
   end
 
-  # The true predicate for 'no contract restriction'
-  TruePredicate = ->(arg){ true }
+  # The predicate that accepts all values
+  All = ->(arg){ true }
 
   # Default contract options
   DefaultOptions = {

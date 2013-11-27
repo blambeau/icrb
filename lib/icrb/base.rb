@@ -1,38 +1,23 @@
 module ICRb
   class Base
 
-    def initialize(target, name, datatype, precondition, options)
+    def initialize(target, name, datatype, invariant, options)
       @target = target
       @name = name
       @datatype = datatype
-      @precondition = precondition
+      @invariant = invariant
       @options = options
       install if options[:accessors] && (name != Unset)
     end
-    attr_reader :target, :name, :datatype, :precondition, :options
+    attr_reader :target, :name, :datatype, :invariant, :options
 
-    def self.build(target, name, datatype, precondition, options, &defn)
-      Class.new(Base, &defn).new(target, name, datatype, precondition, options)
-    end
-
-    def datatype_match?(arg)
-      datatype===arg
-    end
-
-    def precondition_ok?(arg)
-      precondition===arg
-    end
-
-    def precondition_ok!(arg)
-      unless precondition_ok?(arg)
-        raise AlphaError, "Invalid input `#{arg}` for #{target.name}.#{name}"
-      end
-      arg
+    def self.build(target, name, datatype, invariant, options, &defn)
+      Class.new(Base, &defn).new(target, name, datatype, invariant, options)
     end
 
     def _alpha(arg)
       if datatype_match?(arg)
-        precondition_ok!(arg)
+        invariant_ok!(arg)
         alpha(arg)
       elsif datatype.respond_to?(:alpha)
         _alpha(datatype.alpha(arg))
@@ -43,6 +28,23 @@ module ICRb
 
     def _omega(inst)
       omega(inst)
+    end
+
+  private
+
+    def datatype_match?(arg)
+      datatype===arg
+    end
+
+    def invariant_ok?(arg)
+      invariant===arg
+    end
+
+    def invariant_ok!(arg)
+      unless invariant_ok?(arg)
+        raise AlphaError, "Invalid input `#{arg}` for #{target.name}.#{name}"
+      end
+      arg
     end
 
   private
