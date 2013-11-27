@@ -15,19 +15,19 @@ module ICRb
       Class.new(Base, &defn).new(target, name, infotype, invariant, options)
     end
 
-    def _alpha(arg)
+    def _dress(arg)
       if infotype_match?(arg)
         invariant_ok!(arg)
-        alpha(arg)
-      elsif infotype.respond_to?(:alpha)
-        _alpha(infotype.alpha(arg))
+        dress(arg)
+      elsif infotype.respond_to?(:dress)
+        _dress(infotype.dress(arg))
       else
         raise AlphaError, "Invalid input `#{arg}` for #{infotype.name}"
       end
     end
 
-    def _omega(inst)
-      omega(inst)
+    def _undress(inst)
+      undress(inst)
     end
 
   private
@@ -56,13 +56,13 @@ module ICRb
 
     def install_loader(ic = self)
       eigen_target.send(:define_method, name) do |arg|
-        ic._alpha(arg)
+        ic._dress(arg)
       end
     end
 
     def install_dumper(ic = self)
       target.send(:define_method, :"to_#{name}") do
-        ic._omega(self)
+        ic._undress(self)
       end
     end
 

@@ -8,11 +8,11 @@ class Board
 
   ic Relation[pos: Integer] do
 
-    def alpha(relation)
+    def dress(relation)
       Board.new relation.extend(pos: ->(t){ t.pos*2 })
     end
 
-    def omega(board)
+    def undress(board)
       board.rel.extend(pos: ->(t){ t.pos / 2 })
     end
 

@@ -22,19 +22,19 @@ module ICRb
     end
 
     def _to_json(arg, *args, &bl)
-      arg.class.omega(arg).to_json(*args, &bl)
+      arg.class.undress(arg).to_json(*args, &bl)
     end
 
     def _to_yaml(arg, *args, &bl)
-      arg.class.omega(arg).to_yaml(*args, &bl)
+      arg.class.undress(arg).to_yaml(*args, &bl)
     end
 
-    def _alpha(arg)
+    def _dress(arg)
       not_empty!
       error = nil
       alternatives.each_pair do |name, ic|
         begin
-          return ic._alpha(arg)
+          return ic._dress(arg)
         rescue AlphaError => ex
           error = ex
         end
@@ -42,13 +42,13 @@ module ICRb
       raise(error)
     end
 
-    def _omega(inst, using = nil)
+    def _undress(inst, using = nil)
       if empty? && (sc = target.superclass)
-        target.superclass.omega(inst, using)
+        target.superclass.undress(inst, using)
       else
         not_empty!
-        return _omega(inst, alternatives.keys.first) unless using
-        has_contract!(using)._omega(inst)
+        return _undress(inst, alternatives.keys.first) unless using
+        has_contract!(using)._undress(inst)
       end
     end
 

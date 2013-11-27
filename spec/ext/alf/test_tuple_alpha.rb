@@ -1,8 +1,8 @@
 require 'spec_helper'
 module Alf
-  describe Tuple, ".alpha" do
+  describe Tuple, ".dress" do
 
-    subject{ type.alpha(input) }
+    subject{ type.dress(input) }
 
     context 'when no coercion needed' do
       let(:type){ Tuple[pos: Integer] }

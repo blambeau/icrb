@@ -13,12 +13,12 @@ module Chess
 
     ic Relation[pos: Pos, piece: Piece] do
 
-      def alpha(rel)
-        Board.new(Array.alpha(rel.down(pos: :linear).rename(pos: :at, piece: :value)))
+      def dress(rel)
+        Board.new(Array.dress(rel.down(pos: :linear).rename(pos: :at, piece: :value)))
       end
 
-      def omega(board)
-        infotype.alpha(Array.omega(board.pieces).rename(at: :pos, value: :piece))
+      def undress(board)
+        infotype.dress(Array.undress(board.pieces).rename(at: :pos, value: :piece))
       end
 
     end # ic info

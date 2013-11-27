@@ -9,23 +9,23 @@ module Chess
 
     ic :rowcol, Tuple[row: Integer, col: Integer] do
 
-      def alpha(tuple)
+      def dress(tuple)
         Pos.new(tuple.row, tuple.col)
       end
 
-      def omega(pos)
-        infotype.alpha(row: pos.row, col: pos.col)
+      def undress(pos)
+        infotype.dress(row: pos.row, col: pos.col)
       end
 
     end # ic Tuple[row, col]
 
     ic :linear, Integer, ->(i){ i>=0 && i<=63 } do
 
-      def alpha(i64)
+      def dress(i64)
         Pos.rowcol(row: i64 / 8, col: i64 % 8)
       end
 
-      def omega(pos)
+      def undress(pos)
         pos.row*8 + pos.col
       end
 
@@ -33,11 +33,11 @@ module Chess
 
     ic :algebraic, String, ->(s){ s =~ /^[1-8][A-H]$/ } do
 
-      def alpha(s)
+      def dress(s)
         Pos.rowcol(row: s[0, 1].to_i - 1, col: s[1, 1].ord - 65)
       end
 
-      def omega(pos)
+      def undress(pos)
         "#{1+pos.row}#{(65+pos.col).chr}"
       end
 

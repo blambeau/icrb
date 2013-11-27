@@ -1,10 +1,10 @@
 require 'spec_helper'
 module Chess
-  describe Board, 'alpha' do
+  describe Board, 'dress' do
 
     let(:input){ (Path.dir/'board.json').load }
 
-    subject{ Board.alpha(input) }
+    subject{ Board.dress(input) }
 
     it{ should be_a(Board) }
 

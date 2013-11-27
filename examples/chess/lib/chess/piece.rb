@@ -10,11 +10,11 @@ module Chess
     # TODO: make this secure
     ic :info, Tuple[kind: String, color: String] do
 
-      def alpha(tuple)
+      def dress(tuple)
         Piece.const_get(tuple.kind.capitalize).new(tuple.color)
       end
 
-      def omega(piece)
+      def undress(piece)
         infotype.new(kind: piece.kind, color: piece.color)
       end
 

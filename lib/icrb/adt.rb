@@ -32,12 +32,12 @@ module ICRb
         ics[name] = ICRb::Base.build(self, name, infotype, invariant, options, &defn)
       end
 
-      def alpha(arg)
-        ics._alpha(arg)
+      def dress(arg)
+        ics._dress(arg)
       end
 
-      def omega(inst, using = nil)
-        ics._omega(inst, using)
+      def undress(inst, using = nil)
+        ics._undress(inst, using)
       end
 
     end # module ClassMethods
@@ -46,17 +46,17 @@ module ICRb
       clazz.extend(ClassMethods)
     end
 
-    def omega(using = nil)
-      self.class.omega(self, using)
+    def undress(using = nil)
+      self.class.undress(self, using)
     end
 
     def ==(other)
-      (other.class == self.class) && (other.omega == self.omega)
+      (other.class == self.class) && (other.undress == self.undress)
     end
     alias :eql? :==
 
     def hash
-      omega.hash
+      undress.hash
     end
 
     def to_json(*args, &bl)

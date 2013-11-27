@@ -9,11 +9,11 @@ module ICRb
 
     ic :triple, Array do
 
-      def alpha(array)
+      def dress(array)
         Color.new(*array)
       end
 
-      def omega(color)
+      def undress(color)
         [color.r, color.g, color.b]
       end
 
@@ -21,11 +21,11 @@ module ICRb
 
     ic :hex, String, /^#[0-9a-f]{6}/i do
 
-      def alpha(s)
+      def dress(s)
         Color.triple [1, 3, 5].map{|i| s[i, 2].to_i(16) }
       end
 
-      def omega(color)
+      def undress(color)
         "#" << color.to_triple.map{|i| i.to_s(16) }.join
       end
 
@@ -33,11 +33,11 @@ module ICRb
 
     ic :rgb, Tuple[r: Integer, g: Integer, b: Integer] do
 
-      def alpha(tuple)
+      def dress(tuple)
         Color.new(tuple.r, tuple.g, tuple.b)
       end
 
-      def omega(color)
+      def undress(color)
         infotype.new(r: color.r, g: color.g, b: color.b)
       end
 

@@ -30,7 +30,7 @@ module Alf
             rehash{|attr|
               proc = ->(t){
                 val = t[attr]
-                val.class.omega(val)
+                val.class.undress(val)
               }
               TupleExpression.new(proc, nil, down_h[attr])
             }
@@ -58,7 +58,7 @@ module Alf
             rehash{|attr, ic|
               proc = ->(t){
                 val = t[attr]
-                val.class.omega(val, ic)
+                val.class.undress(val, ic)
               }
               TupleExpression.new(proc, nil, down_h[attr])
             }

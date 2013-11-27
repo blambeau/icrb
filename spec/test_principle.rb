@@ -56,8 +56,8 @@ module ICRb
       it{ should eq(color) }
     end
 
-    describe '.alpha' do
-      subject{ Color.alpha(arg) }
+    describe '.dress' do
+      subject{ Color.dress(arg) }
 
       context 'with a String' do
         let(:arg){ "#ffc0cb" }
@@ -84,8 +84,8 @@ module ICRb
       end
     end
 
-    describe '.omega' do
-      subject{ Color.omega(color) }
+    describe '.undress' do
+      subject{ Color.undress(color) }
 
       it{ should eq([255,192,203]) }
     end
@@ -99,7 +99,7 @@ module ICRb
     end
 
     describe '==' do
-      subject{ Color.omega(color) == Color.omega(color) }
+      subject{ Color.undress(color) == Color.undress(color) }
 
       it{ should be_true }
     end
@@ -112,7 +112,7 @@ module ICRb
       end
 
       it 'allows a roundtrip' do
-        Color.alpha(::JSON.load(subject)).should eq(color)
+        Color.dress(::JSON.load(subject)).should eq(color)
       end
     end
 
@@ -124,7 +124,7 @@ module ICRb
       end
 
       it 'allows a roundtrip' do
-        Color.alpha(::YAML.load(subject)).should eq(color)
+        Color.dress(::YAML.load(subject)).should eq(color)
       end
     end
 
@@ -133,15 +133,15 @@ module ICRb
 
     let(:input){ Relation(pos: 1) }
 
-    let(:board){ Board.alpha(input) }
+    let(:board){ Board.dress(input) }
 
-    it 'unnamed alpha works' do
+    it 'unnamed dress works' do
       board.should be_a(Board)
       board.rel.should eq(Relation(pos: 2))
     end
 
-    it 'unnamed omega works' do
-      Board.omega(board).should eq(input)
+    it 'unnamed undress works' do
+      Board.undress(board).should eq(input)
     end
 
   end

@@ -10,11 +10,11 @@ module Chess
     }
 
     it 'works as expected' do
-      Board.alpha(input).should be_a(Board)
+      Board.dress(input).should be_a(Board)
     end
 
     it 'is information consistent' do
-      Board.alpha(input).should eq(Board.alpha(input))
+      Board.dress(input).should eq(Board.dress(input))
     end
 
   end

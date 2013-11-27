@@ -24,7 +24,7 @@ module Alf
 
       def extension
         ext = attributes.map{|name, ic|
-          proc = ->(t){ ic.alpha(t[name]) }
+          proc = ->(t){ ic.dress(t[name]) }
           [ name, TupleExpression.new(proc, nil, ic) ]
         }
         Hash[ext]

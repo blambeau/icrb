@@ -1,10 +1,10 @@
 require 'spec_helper'
 module Alf
-  describe Relation, ".alpha" do
+  describe Relation, ".dress" do
 
-    subject{ type.alpha(input) }
+    subject{ type.dress(input) }
 
-    context 'through alpha support' do
+    context 'through dress support' do
       let(:type){ Relation[color: ICRb::Color] }
 
       let(:input){[

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Array, "omega" do
+describe Array, "undress" do
 
   let(:input){
     [nil, "foo", nil, nil, "bar"]
@@ -13,7 +13,7 @@ describe Array, "omega" do
     ])
   }
 
-  subject{ Array.omega(input) }
+  subject{ Array.undress(input) }
 
   it{ should eq(expected) }
 

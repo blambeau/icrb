@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Array, "alpha" do
+describe Array, "dress" do
 
   let(:input){
     Relation[at: Integer, value: Object].coerce([
@@ -9,7 +9,7 @@ describe Array, "alpha" do
     ])
   }
 
-  subject{ Array.alpha(input) }
+  subject{ Array.dress(input) }
 
   it{ should eq([nil, "foo", nil, nil, "bar"]) }
 

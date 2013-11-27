@@ -4,13 +4,13 @@ data = (Path.dir/'board.json').load
 
 # Let load the board from the data there.
 # Everything is deserialized correctly
-board = Chess::Board.alpha(data)
+board = Chess::Board.dress(data)
 
 # This is a beautiful chess board abstraction:
 puts board
 
 # Let undress the abstraction and extract its information content
-rel = Chess::Board.omega(board)
+rel = Chess::Board.undress(board)
 
 # This is a pure data relation
 puts rel
@@ -22,7 +22,7 @@ puts rel.down(:piece).unwrap(:piece).summarize([:color], count: count())
 puts rel.to_json
 
 # Let dress the abstraction again
-board2 = Chess::Board.alpha(rel)
+board2 = Chess::Board.dress(rel)
 
 # This is the same board, of course
 puts board == board2
