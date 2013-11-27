@@ -2,7 +2,7 @@
 
 Information Contracts for Ruby.
 
-[![Build Status](https://secure.travis-ci.org/blambeau/icrb)](http://travis-ci.org/blambeau/icrb)
+[![Build Status](https://travis-ci.org/blambeau/icrb.png)](https://travis-ci.org/blambeau/icrb)
 [![Dependency Status](https://gemnasium.com/blambeau/icrb.png)](https://gemnasium.com/blambeau/icrb)
 [![Code Climate](https://codeclimate.com/github/blambeau/icrb.png)](https://codeclimate.com/github/blambeau/icrb)
 
