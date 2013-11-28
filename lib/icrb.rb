@@ -9,6 +9,7 @@ require "icrb/loader"
 require "icrb/errors"
 
 require "icrb/datatype"
+require "icrb/infotype"
 require "icrb/contract"
 require "icrb/builder"
 
