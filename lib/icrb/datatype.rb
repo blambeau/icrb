@@ -26,17 +26,14 @@ module ICRb
       clazz.extend(ClassMethods)
     end
 
-    def undress(using = nil)
-      self.class.undress(self, using)
-    end
-
     def ==(other)
-      (other.class == self.class) && (other.undress == self.undress)
+      return false unless other.class == self.class
+      self.class.undress(other) == self.class.undress(self)
     end
     alias :eql? :==
 
     def hash
-      undress.hash
+      self.class.undress(self).hash
     end
 
     def to_json(*args, &bl)
