@@ -3,6 +3,7 @@ module ICRb
 
     # Default contract options
     DefaultOptions = {
+      internal: false,
       accessors: true
     }
 
@@ -21,11 +22,12 @@ module ICRb
     end
 
     def build
-      @contract = build_contract
+      build_contract_class
+      build_contract
       build_datatype
-      @contract
+      return contract
     end
-    attr_reader :contract
+    attr_reader :contract, :contract_class
 
   private
 
@@ -53,19 +55,51 @@ module ICRb
       [[name, infotype], invariant, options]
     end
 
+    def internal?
+      options[:internal]
+    end
+
+    ### Contract class
+
+    def build_contract_class
+      @contract_class = Class.new(Contract)
+      install_internal_dressing if internal?
+      install_dressers          if dressers
+      install_valid             if invariant
+    end
+
+    def install_internal_dressing
+      contract_class.module_eval do
+        def dress(internal)
+          target.new(internal)
+        end
+        def undress(adt)
+          adt.send(:internal)
+        end
+      end
+    end
+
+    def install_dressers
+      contract_class.module_eval(&dressers) if dressers
+    end
+
+    def install_valid
+      contract_class.send(:define_method, :valid?, &invariant)
+    end
+
     ### Contract
 
     def build_contract
-      dressers  = self.dressers
-      invariant = self.invariant
-      clazz = Class.new(Contract) do
-        module_eval(&dressers)
-        define_method(:valid?, &invariant) if invariant
-      end
-      clazz.new(datatype, *args)
+      @contract = contract_class.new(datatype, *args)
     end
 
     ### Datatype
+
+    def build_datatype
+      install_loader   if loader?
+      install_dumper   if dumper?
+      install_internal if internal?
+    end
 
     def named?
       contract.name && (contract.name != Default)
@@ -77,11 +111,6 @@ module ICRb
 
     def dumper?
       named? && options[:accessors]
-    end
-
-    def build_datatype
-      install_loader if loader?
-      install_dumper if dumper?
     end
 
     def install_loader
@@ -98,9 +127,32 @@ module ICRb
       end
     end
 
+    def install_internal
+      datatype.module_eval{ include(Internal) }
+    end
+
     def eigen_datatype
       class << datatype; self; end
     end
+
+    module Internal
+
+      def initialize(internal)
+        @internal = internal
+      end
+      attr_reader :internal
+
+      def ==(other)
+        (other.class == self.class) && (other.internal == self.internal)
+      end
+      alias :eql? :==
+
+      def hash
+        internal.hash
+      end
+
+      protected :internal
+    end # module Internal
 
   end # class Builder
 end # module ICRb
