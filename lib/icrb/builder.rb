@@ -71,7 +71,7 @@ module ICRb
     def install_internal_dressing
       contract_class.module_eval do
         def dress(internal)
-          target.new(internal)
+          datatype.new(internal)
         end
         def undress(adt)
           adt.send(:internal)

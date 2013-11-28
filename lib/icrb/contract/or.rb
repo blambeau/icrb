@@ -2,11 +2,11 @@ module ICRb
   class Contract
     class Or
 
-      def initialize(target, alternatives = {})
-        @target = target
+      def initialize(datatype, alternatives = {})
+        @datatype = datatype
         @alternatives = alternatives
       end
-      attr_reader :target, :alternatives
+      attr_reader :datatype, :alternatives
 
       def []=(name, ic)
         alternatives[name] = ic
@@ -42,8 +42,8 @@ module ICRb
       end
 
       def _undress(inst, using = nil)
-        if empty? && (sc = target.superclass)
-          target.superclass.undress(inst, using)
+        if empty? && (sc = datatype.superclass)
+          datatype.superclass.undress(inst, using)
         else
           contract!(using)._undress(inst)
         end
@@ -56,7 +56,7 @@ module ICRb
       end
 
       def not_empty!
-        raise DressError, "No information contract on #{target.name}" if empty?
+        raise DressError, "No information contract on #{datatype.name}" if empty?
       end
 
       def has_contract!(name)

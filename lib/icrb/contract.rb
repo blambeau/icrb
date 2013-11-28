@@ -1,12 +1,12 @@
 module ICRb
   class Contract
 
-    def initialize(target, name, infotype)
-      @target = target
+    def initialize(datatype, name, infotype)
+      @datatype = datatype
       @name = name
       @infotype = infotype
     end
-    attr_reader :target, :name, :infotype
+    attr_reader :datatype, :name, :infotype
 
     def _dress(infovalue)
       if infotype === infovalue
@@ -34,7 +34,7 @@ module ICRb
     end
 
     def invalid_error!(infovalue)
-      raise DressError, "Invalid input `#{infovalue}` for #{target.name}.#{name}"
+      raise DressError, "Invalid input `#{infovalue}` for #{datatype.name}.#{name}"
     end
 
   end # class Contract
