@@ -26,5 +26,9 @@ module ICRb
       superclass.===(value) && constraints.all?{|c| c === value }
     end
 
+    def to_s
+      "#{superclass.to_s}{...}"
+    end
+
   end # class Infotype
 end # module ICRb
