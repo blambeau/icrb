@@ -14,7 +14,7 @@ module ICRb
       elsif infotype.respond_to?(:dress)
         _dress(infotype.dress(infovalue))
       else
-        raise DressError, "Invalid input `#{infovalue}` for #{infotype.name}"
+        invalid_error!(infovalue)
       end
     end
 
@@ -29,10 +29,12 @@ module ICRb
   private
 
     def valid!(infovalue)
-      unless valid?(infovalue)
-        raise DressError, "Invalid input `#{infovalue}` for #{target.name}.#{name}"
-      end
+      invalid_error!(infovalue) unless (infotype===infovalue) && valid?(infovalue)
       infovalue
+    end
+
+    def invalid_error!(infovalue)
+      raise DressError, "Invalid input `#{infovalue}` for #{target.name}.#{name}"
     end
 
   end # class Contract
