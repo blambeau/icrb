@@ -11,11 +11,11 @@ module Alf
     context 'with a hash' do
       subject{ rel.down(color: :hex) }
 
+      pending do
         it 'should have expected heading' do
           subject.heading.should eq(Heading[color: String])
         end
 
-      pending do
         it{ should be_a(Relation[color: String]) }
       end
 

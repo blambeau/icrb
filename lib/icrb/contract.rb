@@ -11,7 +11,7 @@ module ICRb
     def _dress(infovalue)
       if infotype === infovalue
         dress valid!(infovalue)
-      elsif infotype.supertype.respond_to?(:dress)
+      elsif infotype.respond_to?(:dress)
         _dress(_subdress(infovalue))
       else
         invalid_error!(infovalue)

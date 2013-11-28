@@ -7,8 +7,10 @@ module Alf
 
       subject{ omg.to_heading(Heading[pos: Integer, color: ICRb::Color]) }
 
-      it{
-        should eq(Heading[pos: Integer, color: Array])
+      pending{
+        it{
+          should eq(Heading[pos: Integer, color: Array])
+        }
       }
 
     end

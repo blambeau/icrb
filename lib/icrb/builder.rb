@@ -22,6 +22,7 @@ module ICRb
     def self.ic(args, &dressers)
       name        = Default
       datatype    = nil
+      supertype   = Object
       constraints = []
       options     = {}
 
@@ -29,7 +30,7 @@ module ICRb
       args.each do |arg|
         case arg
         when Symbol then name = arg
-        when Class  then datatype.nil? ? (datatype = arg) : (constraints << arg)
+        when Class  then datatype.nil? ? (datatype = arg) : (supertype = arg)
         when Hash   then options = arg
         else
           constraints << arg
@@ -41,8 +42,7 @@ module ICRb
       options[:accessors] &= (name != Default)
 
       # normalize infotype
-      supertype = constraints.find{|c| c.is_a?(Class) } || Object
-      infotype  = Infotype.new(supertype, constraints)
+      infotype = constraints.empty? ? supertype : Infotype.new(supertype, constraints)
 
       # build now
       new(name, datatype, infotype, options, dressers).build

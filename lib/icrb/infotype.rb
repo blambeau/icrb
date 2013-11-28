@@ -1,14 +1,20 @@
 module ICRb
-  class Infotype
+  module Infotype
 
-    def initialize(supertype = Object, constraints = [])
-      @supertype   = supertype
-      @constraints = constraints
+    def self.new(supertype = Object, constraints = [])
+      clazz = Class.new(supertype).extend(Infotype)
+      constraints.each do |c|
+        clazz.such_that(c)
+      end
+      clazz
     end
-    attr_reader :supertype, :constraints
 
-    def self.[](supertype = Object)
+    def self.[](supertype)
       new(supertype)
+    end
+
+    def constraints
+      @constraints ||= []
     end
 
     def such_that(predicate = nil, &bl)
@@ -17,26 +23,7 @@ module ICRb
     end
 
     def ===(value)
-      return false unless supertype === value
-      constraints.all?{|c| c === value }
-    end
-
-    # supertype delegation
-
-    def new(*args, &bl)
-      supertype.new(*args, &bl)
-    end
-
-    def heading(*args, &bl)
-      supertype.heading(*args, &bl)
-    end
-
-    def dress(*args, &bl)
-      supertype.dress(*args, &bl)
-    end
-
-    def undress(*args, &bl)
-      supertype.undress(*args, &bl)
+      superclass.===(value) && constraints.all?{|c| c === value }
     end
 
   end # class Infotype

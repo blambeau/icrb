@@ -38,17 +38,5 @@ module ICRb
       end
     end
 
-    context 'with a pure range' do
-      let(:infotype){ Infotype[0..255] }
-
-      it 'recognizes valid Integers' do
-        (infotype === 12).should be_true
-      end
-
-      it 'rejects invalid Integers' do
-        (infotype === 1000).should be_false
-      end
-    end
-
   end
 end
