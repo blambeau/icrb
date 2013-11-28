@@ -10,15 +10,42 @@ module ICRb
     # Marker for default name
     Default = :default
 
-    def initialize(datatype, args, &dressers)
+    def initialize(name, datatype, infotype, options, dressers)
+      @name = name
       @datatype = datatype
+      @infotype = infotype
+      @options  = options
       @dressers = dressers
-      @args, @invariant, @options = parse(args)
     end
-    attr_reader :datatype, :args, :invariant, :dressers, :options
+    attr_reader :name, :datatype, :infotype, :options, :dressers
 
-    def self.ic(datatype, args, &defn)
-      new(datatype, args, &defn).build
+    def self.ic(args, &dressers)
+      name        = Default
+      datatype    = nil
+      constraints = []
+      options     = {}
+
+      # parse arguments
+      args.each do |arg|
+        case arg
+        when Symbol then name = arg
+        when Class  then datatype.nil? ? (datatype = arg) : (constraints << arg)
+        when Hash   then options = arg
+        else
+          constraints << arg
+        end
+      end
+
+      # normalize options
+      options = DefaultOptions.merge(options)
+      options[:accessors] &= (name != Default)
+
+      # normalize infotype
+      supertype = constraints.find{|c| c.is_a?(Class) } || Object
+      infotype  = Infotype.new(supertype, constraints)
+
+      # build now
+      new(name, datatype, infotype, options, dressers).build
     end
 
     def build
@@ -31,30 +58,6 @@ module ICRb
 
   private
 
-    def parse(args)
-      name      = Default
-      infotype  = nil
-      invariant = nil
-      options   = {}
-
-      # parse arguments
-      args.each do |arg|
-        case arg
-        when Symbol then name = arg
-        when Proc   then invariant = arg
-        when Class  then infotype = arg
-        when Hash   then options = arg
-        when Regexp then invariant = ->(iv){ arg =~ iv }
-        end
-      end
-
-      # normalize options
-      options = DefaultOptions.merge(options)
-      options[:accessors] &= (name != Default)
-
-      [[name, infotype], invariant, options]
-    end
-
     def internal?
       options[:internal]
     end
@@ -65,7 +68,6 @@ module ICRb
       @contract_class = Class.new(Contract)
       install_internal_dressing if internal?
       install_dressers          if dressers
-      install_valid             if invariant
     end
 
     def install_internal_dressing
@@ -83,14 +85,10 @@ module ICRb
       contract_class.module_eval(&dressers) if dressers
     end
 
-    def install_valid
-      contract_class.send(:define_method, :valid?, &invariant)
-    end
-
     ### Contract
 
     def build_contract
-      @contract = contract_class.new(datatype, *args)
+      @contract = contract_class.new(name, datatype, infotype)
     end
 
     ### Datatype

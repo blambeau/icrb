@@ -23,7 +23,7 @@ module Alf
           end
 
           def to_heading(up_h)
-            up_h.merge(rehash{|attr| up_h[attr].ics.infotype })
+            up_h.merge(rehash{|attr| up_h[attr].ics.infotype.supertype })
           end
 
           def to_extension(down_h)
@@ -51,7 +51,7 @@ module Alf
           end
 
           def to_heading(up_h)
-            up_h.merge(rehash{|attr, ic| up_h[attr].ics.infotype(ic) })
+            up_h.merge(rehash{|attr, ic| up_h[attr].ics.infotype(ic).supertype })
           end
 
           def to_extension(down_h)

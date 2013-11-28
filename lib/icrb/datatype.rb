@@ -8,7 +8,7 @@ module ICRb
       end
 
       def ic(*args, &defn)
-        contract = Builder.ic(self, args, &defn)
+        contract = Builder.ic(args.unshift(self), &defn)
         ics[contract.name] = contract
       end
 
