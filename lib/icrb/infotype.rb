@@ -13,6 +13,10 @@ module ICRb
       new(supertype)
     end
 
+    def new(*args, &bl)
+      superclass.new(*args, &bl)
+    end
+
     def constraints
       @constraints ||= []
     end
