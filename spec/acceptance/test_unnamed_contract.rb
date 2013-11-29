@@ -12,10 +12,6 @@ module ICRb
 
       ic String do
 
-        def valid?(s)
-          s =~ /^[0-9]+$/
-        end
-
         def dress(s)
           WithUnnamedContract.new(s)
         end
